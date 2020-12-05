@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/input_1.txt" />
+    <file url="file://$PROJECT_DIR$/input_10.txt" />
+    <file url="file://$PROJECT_DIR$/input_11.txt" />
+    <file url="file://$PROJECT_DIR$/input_12.txt" />
+    <file url="file://$PROJECT_DIR$/input_13.txt" />
+    <file url="file://$PROJECT_DIR$/input_14.txt" />
+    <file url="file://$PROJECT_DIR$/input_15.txt" />
+    <file url="file://$PROJECT_DIR$/input_16.txt" />
+    <file url="file://$PROJECT_DIR$/input_17.txt" />
+    <file url="file://$PROJECT_DIR$/input_18.txt" />
+    <file url="file://$PROJECT_DIR$/input_19.txt" />
+    <file url="file://$PROJECT_DIR$/input_2.txt" />
+    <file url="file://$PROJECT_DIR$/input_20.txt" />
+    <file url="file://$PROJECT_DIR$/input_21.txt" />
+    <file url="file://$PROJECT_DIR$/input_22.txt" />
+    <file url="file://$PROJECT_DIR$/input_23.txt" />
+    <file url="file://$PROJECT_DIR$/input_24.txt" />
+    <file url="file://$PROJECT_DIR$/input_3.txt" />
+    <file url="file://$PROJECT_DIR$/input_4.txt" />
+    <file url="file://$PROJECT_DIR$/input_5.txt" />
+    <file url="file://$PROJECT_DIR$/input_6.txt" />
+    <file url="file://$PROJECT_DIR$/input_7.txt" />
+    <file url="file://$PROJECT_DIR$/input_8.txt" />
+    <file url="file://$PROJECT_DIR$/input_9.txt" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_14" default="false" project-jdk-name="Python 3.8" project-jdk-type="Python SDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
