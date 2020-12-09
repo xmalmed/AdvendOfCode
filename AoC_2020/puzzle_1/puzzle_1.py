@@ -8,12 +8,12 @@ INPUT = [1801, 1324, 1924, 1848, 1735, 1721, 1948, 1667, 1832, 1773, 1972, 1777,
          1710, 1831, 1906, 1922, 1861, 1694, 1875, 307, 1920, 1934, 1966, 1804, 1799, 1548, 1871, 1769, 1997, 1639, 1830, 917, 1797, 1672, 1921, 1965, 1662]
 
 
-def find_sum_of_two(input_list):
+def find_sum_of_two(input_list, target=2020):
     for i in range(len(input_list) - 1):
         for j in range(i + 1, len(input_list)):
-            if input_list[i] + input_list[j] == 2020:
-                print(f'{input_list[i]} * {input_list[j]} = {input_list[i] * input_list[j]}')
-                return
+            if input_list[i] + input_list[j] == target:
+                return input_list[i], input_list[j]
+    return False
 
 
 def find_sum_of_three(input_list):
@@ -25,7 +25,10 @@ def find_sum_of_three(input_list):
                     return
 
 
-INPUT.sort()
+if __name__ == '__main__':
+    INPUT.sort()
 
-find_sum_of_two(INPUT)
-find_sum_of_three(INPUT)
+    (a, b) = find_sum_of_two(INPUT)
+    print(f'{a} * {b} = {a * b}')
+
+    find_sum_of_three(INPUT)
