@@ -43,25 +43,15 @@ def visible_seats(x: int, y: int, boat) -> str:
         return adj
     else:
         seats = ''
-        for direc in product([-1,0, 1], [-1,0, 1]):
+        for direc in product([-1, 0, 1], [-1, 0, 1]):
             if direc != (0, 0):
                 seats += follow_direction(x, y, direc[0], direc[1], boat)
         return seats
 
 
-def evaluate_seat(seats_string: str, center: str):
+def evaluate_seat(seats_string: str, center: str, limit: int = 4):
     count = seats_string.count("#")
-    if count >= 4:
-        return 'L'
-    elif count == 0:
-        return '#'
-    else:
-        return center
-
-
-def evaluate_seat_new(seats_string: str, center: str):
-    count = seats_string.count("#")
-    if count >= 5:
+    if count >= limit:
         return 'L'
     elif count == 0:
         return '#'
@@ -108,7 +98,7 @@ if __name__ == "__main__":
         for (x, y) in next_seat(boat):
             if boat[y][x] == '.':
                 continue
-            new_boat[y][x] = evaluate_seat_new(visible_seats(x, y, boat), boat[y][x])
+            new_boat[y][x] = evaluate_seat(visible_seats(x, y, boat), boat[y][x], 5)
         if new_boat == boat:
             break
         counter += 1
