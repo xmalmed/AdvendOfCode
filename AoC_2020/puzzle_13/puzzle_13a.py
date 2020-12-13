@@ -15,7 +15,7 @@ def try_next(n: int, first, second, start):
 
 
 # print(solve(599, 761, 31))  # => 174, 137
-n = 0
+n = 3000000000
 # until_true = True
 while True:
     n += 1
