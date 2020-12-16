@@ -17,8 +17,6 @@ with Path(filename).open() as file:
             continue
         if first_block:
             rules.append(parse("{name}: {s1:d}-{e1:d} or {s2:d}-{e2:d}", line.strip()))
-            # data = parse("{name}: {s1:d}-{e1:d} or {s2:d}-{e2:d}", line.strip())
-            # rules.append((data['s1'], data['e1'], data['s2'], data['e2']))
         if not first_block and not last_block:
             if line.strip() != 'your ticket:':
                 my_ticket = [int(number) for number in line.strip().split(',')]
@@ -38,13 +36,9 @@ for ticket in all_tickets:
             break
 print(f'Total invalid numbers: {total_invalid}')
 
-print(len(all_tickets))
-print(len(invalid_tickets))
 valid_tickets = [ticket for ticket in all_tickets if ticket not in invalid_tickets]
-print(len(valid_tickets))
 
 table_rule_column = []
-
 for rule in rules:
     table_rule_column.append([])
     for column in range(len(valid_tickets[0])):
