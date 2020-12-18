@@ -1,8 +1,11 @@
-from parse import parse
 from pathlib import Path
 from re import sub
 
+# filename = "input_18_test.txt"
+filename = "input_18.txt"
 
+
+# part2
 class NewInt(int):
     def __add__(self, other):
         return NewInt(self.__int__() * other)
@@ -11,11 +14,6 @@ class NewInt(int):
         return NewInt(self.__int__() + other)
 
 
-# filename = "input_18_test.txt"
-filename = "input_18.txt"
-
-# part2
-
 results2 = []
 with Path(filename).open() as file:
     for line in file:
@@ -23,7 +21,7 @@ with Path(filename).open() as file:
         line = line.replace('*', '+')
         line = line.replace('#', '*')
         new_line = sub(r'(\d+)', r'NewInt(\1)', line)
-        results2.append(int(eval(new_line)))    # don't use NewInt here :D
+        results2.append(int(eval(new_line)))  # don't use NewInt here :D
 
 print(sum(results2))
 
@@ -71,6 +69,3 @@ with Path(filename).open() as file:
         results.append(int(solve_math(line)))
 
 print(sum(results))
-
-
-
