@@ -14,14 +14,12 @@ with Path(filename).open() as file:
 
 
 def play_game(deck1, deck2, recursion=False):
-    history = [(tuple(deck1), tuple(deck2))]
+    history = {tuple(deck1 + [0] + deck2)}
     while deck1 and deck2:
         card1 = deck1.pop(0)
         card2 = deck2.pop(0)
         if recursion and card1 <= len(deck1) and card2 <= len(deck2):
-            print(">>> enter sub-game")
             sub_deck1, sub_deck2 = play_game(deck1[:card1], deck2[:card2], recursion=recursion)
-            print("<<<")
             if sub_deck1:
                 deck1 += [card1, card2]
             else:
@@ -31,12 +29,9 @@ def play_game(deck1, deck2, recursion=False):
         else:
             deck2 += [card2, card1]
 
-        d1 = tuple(deck1)
-        d2 = tuple(deck2)
-        if (d1, d2) in history:
-            print(f'infinite, repeat: {(d1, d2)}')
+        if tuple(deck1 + [0] + deck2) in history:
             return deck1, []
-        history.append((d1, d2))
+        history.add(tuple(deck1 + [0] + deck2))
     return deck1, deck2
 
 
