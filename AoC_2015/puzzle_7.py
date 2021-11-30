@@ -19,6 +19,7 @@ def try_operation(ii, o):
         # NOT
         wires[o] = 65535 - wires[ii[1]]
     else:
+        # other
         if ii[1] == "AND":
             try:
                 wires[o] = int(ii[0]) & wires[ii[2]]
