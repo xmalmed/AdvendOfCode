@@ -26,7 +26,7 @@ class Puzzle:
         headers = {'session': self.aoc_session}
         url = f'https://adventofcode.com/{self.year}/day/{self.day}/input'
         r = requests.get(url, cookies=headers)
-        p.write_text(r.text)
+        p.write_text(r.text.rstrip())
 
     def prepare_test_input(self):
         with open('input_test.txt', 'a'):
