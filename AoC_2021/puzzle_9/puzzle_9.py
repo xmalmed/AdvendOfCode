@@ -3,8 +3,10 @@ from numpy import array
 
 ADJACENT = [(0, -1), (-1, 0), (0, 1), (1, 0)]
 
+
 def is_minimum(cave, y, x):
     return all([cave[y + a[0], x + a[1]] > cave[y, x] for a in ADJACENT])
+
 
 def map_basin(cave, y, x):
     basin_size = 0
@@ -32,8 +34,8 @@ if __name__ == '__main__':
 
     basins = []
     total_risk = 0
-    for y in range(1, y_size+1):
-        for x in range(1, x_size+1):
+    for y in range(1, y_size + 1):
+        for x in range(1, x_size + 1):
             if is_minimum(cave, y, x) and cave[y, x] >= 0:
                 total_risk += cave[y, x] + 1
                 cave[y, x] = -1
@@ -43,6 +45,4 @@ if __name__ == '__main__':
     basins.sort()
     print("Total risk is: ", total_risk)
     print("Three largest basins: ", basins[-3:])
-    print(basins[-3] * basins[-2]* basins[-1])
-
-
+    print(basins[-3] * basins[-2] * basins[-1])
