@@ -8,7 +8,7 @@ class Cave:
         self.neighbours = []
 
 
-def find_all_paths(start_path):
+def find_all_paths(start_path, repeat=None):
     paths = start_path
     end_paths = set()
     while len(paths) > 0:
@@ -20,6 +20,8 @@ def find_all_paths(start_path):
                 continue
             elif (n.name.islower() and n.name not in path) or n.name.isupper():
                 paths.append(path + [n.name])
+            elif repeat is not None:
+                repeat.append(path + [n.name])
     return end_paths
 
 
@@ -38,26 +40,9 @@ if __name__ == "__main__":
         caves[a].neighbours.append(caves[b])
         caves[b].neighbours.append(caves[a])
 
-    paths = [["start"]]
-    # part 1
-    end_paths = find_all_paths(paths)
-    print(len(end_paths))
+    repeat_paths = []
+    end_paths1 = find_all_paths([["start"]], repeat_paths)
+    print(len(end_paths1))
 
-    # part 2
-    paths = [["start"]]
-    second_paths = []
-    end_paths = set()
-    while len(paths) > 0:
-        path = paths.pop(0)
-        for n in caves[path[-1]].neighbours:
-            if n.name == "end":
-                end_paths.add("-".join(path + [n.name]))
-            elif n.name == "start":
-                continue
-            elif (n.name.islower() and n.name not in path) or n.name.isupper():
-                paths.append(path + [n.name])
-            else:
-                second_paths.append(path + [n.name])
-
-    end_paths2 = find_all_paths(second_paths)
-    print(len(end_paths2) + len(end_paths))
+    end_paths2 = find_all_paths(repeat_paths)
+    print(len(end_paths2) + len(end_paths1))
