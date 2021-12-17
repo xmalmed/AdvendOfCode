@@ -15,13 +15,13 @@ def is_in_target(vx, vy):
     return False
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     p = Puzzle()
     data = p.load_input()
     # data = p.load_input('input_test.txt')
-    x1, x2, y1, y2 = parse('target area: x={:d}..{:d}, y={:d}..{:d}', data[0])
+    x1, x2, y1, y2 = parse("target area: x={:d}..{:d}, y={:d}..{:d}", data[0])
     X = range(x1, x2 + 1)
-    Y = range(y1, y2+1)
+    Y = range(y1, y2 + 1)
 
     count = 0
     for vx in range(22, 281):
@@ -30,6 +30,3 @@ if __name__ == '__main__':
                 count += 1
 
     print(count)
-
-    for i in range(40):
-        print(i, ' ', i*(i+1)/2)
