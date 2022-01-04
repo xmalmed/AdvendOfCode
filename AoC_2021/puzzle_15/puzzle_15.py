@@ -1,52 +1,42 @@
 from utils.puzzle import Puzzle
 from numpy import zeros, append, fromstring
 
-
-def next_nodes(size):
-    steps = []
-    for r in range(size):
-        step = []
-        for i in range(r + 1):
-            step.append((i, r - i))
-        steps.append(step)
-    for i, s in enumerate(steps[-2::-1]):
-        steps.append([(x[0] + i + 1, x[1] + i + 1) for x in s])
-    return steps
+FAR = float("inf")
 
 
-def update_all_neighbours(node, maze, path, size, depth):
-    depth += 1
-    if depth >= 8:  # magic constant to prevent too many recursions
-        return
-    path_here = path[node]
-    for dx, dy in [(0, 1), (1, 0), (-1, 0), (0, -1)]:
+def get_next_nodes(node, size, node_list=[(0, 1), (1, 0)]):
+    nodes = []
+    for dx, dy in node_list:
         if 0 <= node[0] + dx < size and 0 <= node[1] + dy < size:
-            neighbour_node = (node[0] + dx, node[1] + dy)
-            neighbour_path = path[neighbour_node]
-            neighbour_node_distance = maze[neighbour_node]
-            if neighbour_path > neighbour_node_distance + path_here:
-                path[neighbour_node] = neighbour_node_distance + path_here
-                update_all_neighbours(neighbour_node, maze, path, size, depth)
+            nodes.append((node[0] + dx, node[1] + dy))
+    return nodes
 
 
-def extend_neighbours(node, maze, path, size):
-    path_here = path[node]
-    for dx, dy in [(-1, 0), (0, -1), (0, 1), (1, 0)]:
-        if 0 <= node[0] + dx < size and 0 <= node[1] + dy < size:
-            neighbour_node = (node[0] + dx, node[1] + dy)
-            neighbour_path = path[neighbour_node]
-            neighbour_node_distance = maze[neighbour_node]
-            if neighbour_path > neighbour_node_distance + path_here:
-                path[neighbour_node] = neighbour_node_distance + path_here
-                update_all_neighbours(neighbour_node, maze, path, size, 0)
+def extend_path(current_node, next_node, maze, path, size):
+    current_path = path[current_node]
+    next_path = path[next_node]
+    next_distance = maze[next_node]
+    if next_path > next_distance + current_path:
+        path[next_node] = next_distance + current_path
+        update_visited_paths(next_node, maze, path, size)
 
 
-def find_path(maze, path, size):
-    steps = next_nodes(size)
-    for step in steps:
-        for node in step:
-            extend_neighbours(node, maze, path, size)
-    return path
+def update_visited_paths(node, maze, path, size):
+    neighbours = get_next_nodes(node, size, [(-1, 0), (0, -1), (0, 1), (1, 0)])
+    for neighbour in neighbours:
+        if path[neighbour] == FAR:
+            continue
+        extend_path(node, neighbour, maze, path, size)
+
+
+def run_path_search(nodes, maze, path, size):
+    while nodes:
+        node = nodes.pop(0)
+        neighbours = get_next_nodes(node, size)
+        for neighbour in neighbours:
+            extend_path(node, neighbour, maze, path, size)
+            if neighbour not in nodes:
+                nodes.append(neighbour)
 
 
 if __name__ == "__main__":
@@ -61,17 +51,18 @@ if __name__ == "__main__":
         x = fromstring(" ".join(list(line)), sep=" ")
         maze[i, :] = x
 
-    path = zeros((size, size)) + 9999
+    path = zeros((size, size)) + FAR
     path[(0, 0)] = 0
+    nodes = [(0, 0)]
 
-    path = find_path(maze, path, size)
+    run_path_search(nodes, maze, path, size)
     print(path)
 
-    # ========================
     # part 2
-    size *= 5
-    path = zeros((size, size)) + 99999
-    path[(0, 0)] = 0
+    size2 = size * 5
+    path2 = zeros((size2, size2)) + FAR
+    path2[(0, 0)] = 0
+    nodes = [(0, 0)]
 
     maze_row = maze
     for i in range(1, 5):
@@ -86,5 +77,5 @@ if __name__ == "__main__":
         maze_row = new_maze
         full_maze = append(full_maze, new_maze, 0)
 
-    path = find_path(full_maze, path, size)
-    print(path)
+    run_path_search(nodes, full_maze, path2, size2)
+    print(path2)
