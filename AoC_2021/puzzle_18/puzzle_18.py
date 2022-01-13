@@ -1,4 +1,5 @@
 from utils.puzzle import Puzzle
+from math import floor, ceil
 
 
 class Sn:
@@ -40,6 +41,38 @@ class Sn:
                         self.v[k] += v2
                         break
 
+    def split(self):
+        for i, v in enumerate(self.v):
+            if v > 9:
+                d = self.d[i]
+                self.v[i] = floor(v / 2)
+                self.d[i] = d + 1
+                j = i + Sn.SN // 2 ** (d + 1)
+                self.v[j] = ceil(v / 2)
+                self.d[j] = d + 1
+                return True
+        return False
+
+    def reduce(self):
+        splited = True
+        while splited:
+            self.explode()
+            splited = self.split()
+
+    def magnitude(self):
+        m = self.v.copy()
+        dd = self.d.copy()
+        for depth in range(1, Sn.POWER).__reversed__():
+            for i in range(self.SN):
+                if dd[i] == depth:
+                    j = i + Sn.SN // 2 ** depth
+                    m[i] = 3 * m[i] + 2 * m[j]
+                    dd[i] += -1
+                    dd[j] = -1
+                    m[j] = -1
+
+        return m[0]
+
 
 def load_sn(text):
     sn_list = eval(text)
@@ -64,23 +97,26 @@ def load_sn(text):
 
 if __name__ == "__main__":
     p = Puzzle()
-    # data = p.load_input()
-    data = p.load_input("input_test.txt")
+    data = p.load_input()
+    # data = p.load_input("input_test.txt")
 
-    first = load_sn(data[0])
-    second = load_sn(data[1])
-    ab = first.add(second)
-    print(ab.v)
-    print(ab.d)
+    last = load_sn(data[0])
+    sn_list = [last]
+    for line in data[1:]:
+        sn = load_sn(line)
+        sn_list.append(sn)
+        new = last.add(sn)
+        new.reduce()
+        last = new
 
-    print()
-    c = load_sn(data[2])
-    print(c.v)
-    print(c.d)
-    print()
+    print("Snailfish homework magnitude is: ", last.magnitude())
 
-    c.explode()
-    print(c.v)
-    print(c.d)
-
-    print()
+    sn_max = -1
+    for i in range(len(sn_list)):
+        for j in range(len(sn_list)):
+            sn = sn_list[i].add(sn_list[j])
+            sn.reduce()
+            m = sn.magnitude()
+            if m > sn_max:
+                sn_max = m
+    print("Snailfish max magnitude is: ", sn_max)
