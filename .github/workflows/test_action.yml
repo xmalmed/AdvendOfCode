@@ -7,11 +7,10 @@ on:
         description: 'Any string to be echoed...'
         required: false
         type: string
-  push:
 
 jobs:
   run_tests:
-    uses: xmalmed/AdvendOfCode/.github/workflows/reuse_action.yml@${{ env.GITHUB_REF_NAME }}
+    uses: xmalmed/AdvendOfCode/.github/workflows/reuse_action.yml@${{env.GITHUB_REF_NAME}}
     with:
       run-expression: '${{ github.event.inputs.include-expression }}'
     secrets:
