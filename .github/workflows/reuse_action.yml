@@ -1,0 +1,31 @@
+name: reuse_test
+
+on:
+  workflow_call:
+    inputs:
+      run-expression:
+        required: false
+        type: string
+    secrets:
+      token:
+        required: true
+
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.token }}
+
+      - name: Echo input
+        run: echo ${{ inputs.run-expression }}
+
+      - name: Echo branch
+        run: |
+          echo ${{ env.GITHUB_REF_NAME }}
+          echo "===end==="
+
