@@ -1,0 +1,18 @@
+name: test_action
+
+on:
+  workflow_dispatch:
+    inputs:
+      include-expression:
+        description: 'Any string to be echoed...'
+        required: false
+        type: string
+  push:
+
+jobs:
+  run_tests:
+    uses: xmalmed/AdvendOfCode/.github/workflows/reuse_action.yml@GHA-demo
+    with:
+      run-expression: '${{ github.event.inputs.include-expression }}'
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
