@@ -10,6 +10,14 @@ on:
   push:
 
 jobs:
+  print_event:
+    if: ${{ github.event_name }} == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo '${{ github.event.inputs.include-expression }}'
+          echo ${{ github.ref }}
+
   run_tests:
     uses: xmalmed/AdvendOfCode/.github/workflows/reuse_action.yml@GHA-demo
     with:

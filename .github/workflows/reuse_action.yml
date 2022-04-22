@@ -29,3 +29,7 @@ jobs:
           echo ${{ github.ref }}
           echo "===end==="
 
+      - name: Echo input
+        run: |
+          echo ${{ github.event.action }}
+          echo ${{ github.event_name }}
