@@ -26,6 +26,6 @@ jobs:
 
       - name: Echo branch
         run: |
-          echo ${{ env.GITHUB_REF_NAME }}
+          echo ${{ github.ref }}
           echo "===end==="
 
