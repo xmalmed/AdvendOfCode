@@ -21,15 +21,18 @@ jobs:
         with:
           token: ${{ secrets.token }}
 
-      - name: Echo input
-        run: echo ${{ inputs.run-expression }}
+      - name: dispatch
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo ${{ inputs.run-expression }}
+          echo ${{ github.ref }}
 
       - name: Echo branch
         run: |
           echo ${{ github.ref }}
           echo "===end==="
 
-      - name: Echo input
-        run: |
-          echo ${{ github.event.action }}
-          echo ${{ github.event_name }}
+#      - name: Echo input
+#        run: |
+#          echo ${{ github.event.action }}
+#          echo ${{ github.event_name }}
