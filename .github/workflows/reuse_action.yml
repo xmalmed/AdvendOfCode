@@ -22,13 +22,16 @@ jobs:
         with:
           token: ${{ secrets.token }}
 
-      - name: Test if version
-        if: ${{ inputs.run-expression }}
-        run: echo "version is ${{ inputs.run-expression }}"
+      - name: if dispatch
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "version is v9"
 
       - name: Echo version
-        if: ${{ ! inputs.run-expression }}
+        if: github.event_name != 'workflow_dispatch'
         run: echo "version is v10"
+
+      - name: Echo default value
+        run: echo ${{ inputs.run-expression }}
 
 #      - name: Echo branch
 #        run: |
