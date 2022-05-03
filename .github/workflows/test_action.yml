@@ -2,11 +2,11 @@ name: test_action
 
 on:
   workflow_dispatch:
-#    inputs:
-#      include-expression:
-#        description: 'Any string to be echoed...'
-#        required: false
-#        type: string
+    inputs:
+      include-expression:
+        description: 'Version'
+        required: false
+        type: string
   push:
 
 jobs:
