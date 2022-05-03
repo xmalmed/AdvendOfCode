@@ -6,7 +6,7 @@ on:
       run-expression:
         required: false
         type: string
-        default: v9
+        default: 'v9'
     secrets:
       token:
         required: true
