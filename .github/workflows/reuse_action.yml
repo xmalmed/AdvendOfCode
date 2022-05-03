@@ -6,6 +6,7 @@ on:
       run-expression:
         required: false
         type: string
+        default: v9
     secrets:
       token:
         required: true
@@ -21,11 +22,16 @@ jobs:
         with:
           token: ${{ secrets.token }}
 
-      - name: Echo input
-        run: echo ${{ inputs.run-expression }}
+      - name: Test if version
+        if: inputs.run-expression
+        run: echo "version is ${{ inputs.run-expression }}"
 
-      - name: Echo branch
-        run: |
-          echo ${{ github.ref }}
-          echo "===end==="
+      - name: Echo version
+        if: ! inputs.run-expression
+        run: echo "version is v10"
+
+#      - name: Echo branch
+#        run: |
+#          echo ${{ github.ref }}
+#          echo "===end==="
 

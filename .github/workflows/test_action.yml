@@ -11,7 +11,8 @@ on:
 
 jobs:
   run_tests:
-    uses: xmalmed/AdvendOfCode/.github/workflows/reuse_action.yml@GHA-demo
+#    uses: xmalmed/AdvendOfCode/.github/workflows/reuse_action.yml@GHA-demo
+    uses: xmalmed/AdvendOfCode/.github/workflows/reuse_action.yml@master
     with:
       run-expression: '${{ github.event.inputs.include-expression }}'
     secrets:
