@@ -1,0 +1,5 @@
+name: aoc_env
+channels:
+  - defaults
+dependencies:
+  - python=3.10
