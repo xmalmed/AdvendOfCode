@@ -32,13 +32,13 @@ class Puzzle:
         with open('input_test.txt', 'a'):
             pass
 
-    def load_input(self, filename='input.txt', string=False, raw=False) -> list:
+    def load_input(self, filename='input.txt', string=False, is_raw=False) -> list:
         data = []
 
         with open(filename, "r") as f:
             raw = f.readlines()
 
-        if raw:
+        if is_raw:
             return raw
 
         data = list(map(str.strip, raw))
