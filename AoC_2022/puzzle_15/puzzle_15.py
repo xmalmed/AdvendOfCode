@@ -1,7 +1,10 @@
 from utils.puzzle import Puzzle
 from parse import parse
+from timeit import default_timer
 
 LIMIT = 4_000_000 + 1
+
+
 # LIMIT = 20 + 1
 
 
@@ -35,18 +38,19 @@ if __name__ == "__main__":
     data = p.load_input()
     # data = p.load_input('input_test.txt')
 
+    start = default_timer()
     for i, sensor in enumerate(data):
         sx, sy, bx, by = parse('Sensor at x={:d}, y={:d}: closest beacon is at x={:d}, y={:d}', sensor)
         data[i] = (sx, sy, bx, by, manhatan_dist(sx, sy, bx, by))
 
     scans = set()
-    for Y in range(0, LIMIT):
+    for Y in range(0, LIMIT).__reversed__():
         if Y % 100_000 == 0:
             print(Y)
         ranges = []
         for sensor in data:
             dist = sensor[4]
-            diff = abs(Y-sensor[1])
+            diff = abs(Y - sensor[1])
             if Y == 2_000_000:
                 scans = scans.union(set(range(sensor[0] - (dist - diff), sensor[0] + 1 + (dist - diff))))
             x = max(sensor[0] - (dist - diff), 0)
@@ -58,3 +62,6 @@ if __name__ == "__main__":
             break
         if Y == 2_000_000:
             print(f"Part 1: {len(scans)} - 1 for a beacon.")
+
+    end = default_timer()
+    print(end - start)
