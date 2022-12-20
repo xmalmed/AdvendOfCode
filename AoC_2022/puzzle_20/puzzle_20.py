@@ -43,7 +43,7 @@ if __name__ == "__main__":
         current = nums[i]
         neg = current.value < 0
         moves = 1 if neg else 0
-        moves = moves + abs(current.value)
+        moves = moves + (abs(current.value) % (l-1) )
         if moves == 0:
             continue
         n = current
@@ -73,3 +73,49 @@ if __name__ == "__main__":
 
 
     # 10831 part 1
+
+    nums = []
+    first = CircleItem(data[0]*KEY)
+    nums.append(first)
+    for v in data[1:]:
+        new = CircleItem(v*KEY)
+        if v == 0:
+            zero = new
+        new.prev = nums[-1]
+        nums[-1].nex = new
+        nums.append(new)
+    nums[0].prev = nums[-1]
+    nums[-1].nex = nums[0]
+
+    for _ in range(10):
+        for i in range(len(data)):
+            current = nums[i]
+            neg = current.value < 0
+            moves = 1 if neg else 0
+            moves = moves + (abs(current.value) % (l - 1))
+            if moves == 0:
+                continue
+            n = current
+            for _ in range(abs(moves)):
+                if neg:
+                    n = n.prev
+                    if n == current:
+                        n = n.prev
+                else:
+                    n = n.nex
+                    if n == current:
+                        n = n.nex
+            current.prev.nex = current.nex
+            current.nex.prev = current.prev
+            n.nex.prev = current
+            current.nex = n.nex
+            n.nex = current
+            current.prev = n
+
+    n = zero
+    results = []
+    for i in range(1, 3001):
+        n = n.nex
+        if i % 1000 == 0:
+            results.append(n.value)
+    print(results, sum(results))
