@@ -34,7 +34,7 @@ jobs:
     if: github.event_name != 'workflow_dispatch'
     uses: ./.github/workflows/reuse_action.yml
     with:
-      run-expression: Toto je pusteno na PUSH - ${{ FOO }}
+      run-expression: Toto je pusteno na PUSH # - ${{ FOO }}
       test_a: $FOO
       test_b: ${{ FOO }}
     secrets:
