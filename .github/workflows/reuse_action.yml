@@ -6,6 +6,12 @@ on:
       run-expression:
         required: false
         type: string
+      test_a:
+        required: false
+        type: string
+      test_b:
+        required: false
+        type: string
     secrets:
       token:
         required: true
@@ -32,7 +38,7 @@ jobs:
           echo ${{ github.ref }}
           echo "===end==="
 
-#      - name: Echo input
-#        run: |
-#          echo ${{ github.event.action }}
-#          echo ${{ github.event_name }}
+      - name: Echo test
+        run: |
+          echo ${{ inputs.test_a }}
+          echo ${{ inputs.test_b }}
