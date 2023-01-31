@@ -20,7 +20,7 @@ jobs:
 
   start_reuse:
     if: github.event_name == 'workflow_dispatch'
-    uses: ./.github/workflows/reuse_action.yml@GHA-demo
+    uses: ./.github/workflows/reuse_action.yml
     with:
       run-expression: '${{ github.event.inputs.include-expression }}'
     secrets:
@@ -28,7 +28,7 @@ jobs:
 
   start_reuse_on_push:
     if: github.event_name != 'workflow_dispatch'
-    uses: ./.github/workflows/reuse_action.yml@GHA-demo
+    uses: ./.github/workflows/reuse_action.yml
     with:
       run-expression: 'Toto je pusteno na PUSH'
     secrets:
