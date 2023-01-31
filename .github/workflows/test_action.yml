@@ -9,6 +9,9 @@ on:
         type: string
   push:
 
+env:
+  FOO: 'foo_bar'
+
 jobs:
   print_event:
     if: github.event_name == 'workflow_dispatch'
@@ -17,6 +20,7 @@ jobs:
       - run: |
           echo '${{ github.event.inputs.include-expression }}'
           echo ${{ github.ref }}
+          echo $FOO
 
   start_reuse:
     if: github.event_name == 'workflow_dispatch'
@@ -30,6 +34,6 @@ jobs:
     if: github.event_name != 'workflow_dispatch'
     uses: ./.github/workflows/reuse_action.yml
     with:
-      run-expression: 'Toto je pusteno na PUSH'
+      run-expression: Toto je pusteno na PUSH - $FOO
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
