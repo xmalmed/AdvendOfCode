@@ -36,6 +36,6 @@ jobs:
     with:
       run-expression: Toto je pusteno na PUSH # - ${{ FOO }}
       test_a: $FOO
-      test_b: ${{ FOO }}
+#      test_b: ${{ FOO }}
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
