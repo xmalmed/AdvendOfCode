@@ -19,8 +19,17 @@ jobs:
           echo ${{ github.ref }}
 
   start_reuse:
-    uses: xmalmed/AdvendOfCode/.github/workflows/reuse_action.yml@GHA-demo
+    if: github.event_name == 'workflow_dispatch'
+    uses: ./.github/workflows/reuse_action.yml@GHA-demo
     with:
       run-expression: '${{ github.event.inputs.include-expression }}'
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
+
+  start_reuse_on_push:
+    if: github.event_name != 'workflow_dispatch'
+    uses: ./.github/workflows/reuse_action.yml@GHA-demo
+    with:
+      run-expression: 'Toto je pusteno na PUSH'
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
