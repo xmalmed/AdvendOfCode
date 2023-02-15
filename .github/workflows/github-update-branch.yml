@@ -16,10 +16,8 @@ jobs:
       - name: git list
         run: git branch -a
 
-      - run: echo ${{ github.ref }}
-
       - name: git checkout
-        run: git checkout test3
+        run: git checkout test3 refs/remotes/origin/test3
 
       - name: git rebase
         run: git rebase GHA-demo
