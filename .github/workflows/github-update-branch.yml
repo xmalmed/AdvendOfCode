@@ -12,6 +12,12 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2
 
+
+      - name: git list
+        run: git branch -a
+
+      - run: echo ${{ github.ref }}
+
       - name: git checkout
         run: git checkout test3
 
