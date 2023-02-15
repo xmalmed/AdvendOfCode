@@ -17,7 +17,7 @@ jobs:
         run: git branch -a
 
       - name: git checkout
-        run: git checkout test3 refs/remotes/origin/test3
+        run: git checkout -B test3 refs/remotes/origin/test3
 
       - name: git rebase
         run: git rebase GHA-demo
