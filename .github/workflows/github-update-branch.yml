@@ -1,6 +1,7 @@
 name: rebase branch wf
-on: push
-  branch:
+on:
+  push:
+    branches:
     - GHA-demo
 
 jobs:
