@@ -24,5 +24,8 @@ jobs:
       - name: git rebase
         run: git rebase GHA-demo
 
+      - name: git push branch update
+        run: git push test3 -m to_main
+
       - name: git checkout back
         run: git checkout ${{ github.ref }}
