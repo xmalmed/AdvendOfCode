@@ -36,24 +36,42 @@ def align(scan1, scan2):
     # s1 d
     # d2[i]
 
+class Scan():
+    def __init__(self, coordinates: list):
+        self.coordinates = coordinates
+        self.start_directions = self.initial_directions()
+
+
+    def initial_directions(self):
+        start_directionsnces = {}
+        for i in range(len(self.coordinates) - 1):
+            for j in range(i + 1, len(self.coordinates)):
+                v = (
+                        (self.coordinates[j][0] - self.coordinates[i][0]),
+                        + (self.coordinates[j][1] - self.coordinates[i][1]),
+                        + (self.coordinates[j][2] - self.coordinates[i][2]),
+                )
+                start_directionsnces[(i, j)] = v
+        return start_directionsnces
+
+
 if __name__ == "__main__":
     p = Puzzle()
     # data = p.load_input()
-    data = p.load_input('input_test.txt')
-    # data = p.load_input("input_test2.txt")
-    scans = {}
-    scan = 0
-    scans[scan] = []
+    # data = p.load_input('input_test.txt')
+    data = p.load_input("input_test2.txt")
+
+    scanners = []
     for line in data:
         if match(r"--- scanner", line):
-            continue
+            scanner = []
         elif line == "":
-            scan += 1
-            scans[scan] = []
+            scanners.append(Scan(scanner))
+            scanner = []
         else:
-            scans[scan].append(tuple(int(x) for x in line.split(",")))
+            scanner.append(tuple(int(x) for x in line.split(",")))
+    if scanner:
+        scanners.append(Scan(scanner))
 
-    # distances = {}
-    for i, s in scans.items():
-        print(is_overlaped(scans[0], s))
-        # distances[i] = get_distances(s)
+
+    print(scanners[0].initial_directions())
