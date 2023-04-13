@@ -1,10 +1,14 @@
 name: test_action
+run-name: TEST ${{ join([github.ref_name, inputs.*], ', ') }}
 
 on:
   workflow_dispatch:
     inputs:
       include-expression:
         description: 'Any string to be echoed...'
+        required: false
+        type: string
+      pokus:
         required: false
         type: string
   push:
