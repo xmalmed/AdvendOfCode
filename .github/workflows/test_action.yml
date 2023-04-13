@@ -1,5 +1,5 @@
 name: test_action
-run-name: TEST ${{ join([github.ref_name, inputs.*], ', ') }}
+run-name: TEST ${{ join(inputs.*, ', ') }}
 
 on:
   workflow_dispatch:
