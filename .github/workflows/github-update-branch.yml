@@ -15,7 +15,7 @@ jobs:
           ref: test3
 
       - name: print
-        run: echo ${{ github.ref }}
+        run: echo ${{ github.ref }} && echo "$GITHUB_REF"
 
 
       - name: git list
