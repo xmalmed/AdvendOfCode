@@ -9,9 +9,12 @@ on:
         required: false
         type: string
       pokus:
+        description: 'pokus'
         required: false
         type: string
   push:
+    branches:
+      - GHA-demo
 
 env:
   FOO: 'foo_bar'

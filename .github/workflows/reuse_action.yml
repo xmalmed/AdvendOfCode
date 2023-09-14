@@ -30,6 +30,7 @@ jobs:
       - name: dispatch
 #        if: github.event_name == 'workflow_dispatch'
         run: |
+          echo ${{ github.event_name }}
           echo ${{ inputs.run-expression }}
           echo ${{ github.ref }}
 
