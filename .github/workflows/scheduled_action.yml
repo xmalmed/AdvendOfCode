@@ -8,8 +8,8 @@ on:
   push:
     branches:
       - GHA-demo
-  schedule:
-    - cron: '*/5 * * * THU'
+#  schedule:
+#    - cron: '*/5 * * * THU'
 
 
 jobs:
