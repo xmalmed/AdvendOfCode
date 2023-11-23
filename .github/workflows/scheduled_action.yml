@@ -1,0 +1,37 @@
+name: test_scheduled_branch
+run-name: scheduled ${{ join(inputs.*, ', ') }}
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches:
+      - GHA-demo
+  schedule:
+    - cron: '*/5 * * * THU'
+
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac  # v4.0.0
+        with:
+          # schedule runs from `master`, but `traceability` branch should be checkout
+          ref: ${{ github.event_name == 'schedule' && 'traceability' || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Align traceability branch with master
+        if: github.event_name == 'schedule' || github.ref_name == 'traceability'
+        run: |
+          git checkout -b master origin/master
+          git rebase master traceability
+          git push origin traceability
+          git checkout traceability
+
+      - name: print
+        run: date
