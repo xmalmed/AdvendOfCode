@@ -7,9 +7,7 @@ RY = np.array([[0, 0, 1], [0, 1, 0], [-1, 0, 0]])
 RX = np.array([[1, 0, 0], [0, 0, -1], [0, 1, 0]])
 
 
-def is_overlaped(scan1, scan2):
-    overlap = scan1.distance_set.intersection(scan2.distance_set)
-    return len(overlap)
+
 
 
 # def align(scan1, scan2):
@@ -51,6 +49,41 @@ class Scanner:
     def rotateX(self):
         self.beacons = [RX @ b for b in self.beacons]
 
+    def is_overlapped(self, scan2):
+        overlap = self.distance_set.intersection(scan2.distance_set)
+        return overlap
+
+    def overlap(self, scan2, distances):
+        d = distances.pop()
+        key1 = next(key for key in self.distance_net if self.distance_net[key] == d)
+        key2 = next(key for key in scan2.distance_net if scan2.distance_net[key] == d)
+        beacon2 = scan2.beacons[key2[0]]
+        shiftA = beacon2 - self.beacons[key1[0]]
+        shiftB = beacon2 - self.beacons[key1[1]]
+
+        testA = [b + shiftA for b in self.beacons]
+
+        ###
+
+
+
+        testB = [b + shiftB for b in self.beacons]
+        xxx = [key for key in scan2.distance_net if scan2.distance_net[key] in distances]
+        xx = []
+        for k in xxx:
+            xx.append(k[0])
+            xx.append(k[1])
+        x = set(xx)
+        for i in x:
+            assert any((scan2.beacons[i] == x).all() for x in testB)
+
+
+        print()
+
+
+
+
+
     # def initial_directions(self):
     #     start_directionsnces = {}
     #     for i in range(len(self.coordinates) - 1):
@@ -62,6 +95,9 @@ class Scanner:
     #             )
     #             start_directionsnces[(i, j)] = v
     #     return start_directionsnces
+
+
+
 
 
 if __name__ == "__main__":
@@ -83,6 +119,7 @@ if __name__ == "__main__":
         scanners.append(Scanner(scanner))
 
 
-    print(is_overlaped(scanners[0], scanners[1]))
+    distances = scanners[0].is_overlapped(scanners[1])
+    scanners[0].overlap(scanners[1], distances)
 
     print()
