@@ -6,7 +6,7 @@ if __name__ == '__main__':
     data = p.load_input()
     # data = p.load_input('input_test.txt')
 
-    total =  0
+    total = 0
     for d in data:
         x = re.search(r'[0-9]', d)
         y = re.search(r'.*([0-9])', d)
