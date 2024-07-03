@@ -1,2 +1,2 @@
 # AdvendOfCode
-Advent puzzles to solve
+Advent puzzles to solve.
