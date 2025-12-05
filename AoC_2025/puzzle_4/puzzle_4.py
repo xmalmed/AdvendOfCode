@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
     for i in range(1, boards.shape[0]-1):
         for j in range(1, boards.shape[1]-1):
-            if boards[i,j] == 1 and  sum(sum(boards[i-1:i+2, j-1:j+2])) < 5:
+            if boards[i,j] == 1 and  (boards[i-1:i+2, j-1:j+2]).sum() < 5:
                 count+=1
 
     print(count)
